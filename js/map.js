@@ -1,6 +1,8 @@
 $(document).ready(function(){
+	$("#welcome").click(function(){
+		$(this).slideUp("slow");
+	});
 	var city_sel ;
-	// var temperature = 45;
 	$("#form").submit(function(event){
 	event.preventDefault();
 	city_sel = $("#city_name").val();
@@ -13,7 +15,7 @@ $(document).ready(function(){
 	else
 	{	form.reset();
 		$("#exp").hide();
-		$("#cetee, #map, #temp, #table_div, #weat").fadeIn("slow");
+		$("#cetee, #map, #temp, #weat").fadeIn("slow");
 		// $("#overlay").html(temperature + " F");
 		// alert("Welcome");
 		// console.log(city_sel);
@@ -23,6 +25,8 @@ $(document).ready(function(){
 			if(fourecast_response.meta.code != 200)
 			{
 				$("#display_selected").html("City not found");
+				$("#overlay").html(" ");
+				$("#map, #table_div, .container").hide();
 			}
 			else
 			{
@@ -34,12 +38,14 @@ $(document).ready(function(){
 				console.log(city);
 				console.log(lat);
 				console.log(lng);
+				$(".container").show();
 				$("#display_selected").html("You have selected" + " " + city + 
 					"." + " " + "Coordinates are.." + " " + lat +"," + lng);
 				var forcast_url = "https://api.forecast.io/forecast/761080e4acfe83e078084db199ffe7c3/" + lat + "," + lng + "?callback=?";
 				// var me = [2000, 3.3];
 				// var me1 = [2002, 6];
-				var me2 = "<table ><tr><th>Time</th><th>Wind Speed</th><th>Wind Bearing</th></tr>";
+				 $("#table_div").fadeIn("slow");
+				var me2 = "<table ><tr><th>Time</th><th>Wind Speed (m/s)</th><th>Wind Bearing (°)</th></tr>";
 				function display_forcast(forecast_response){
 					var result_curr = forecast_response.currently.temperature;
 					var daily_result = forecast_response.daily.data;
@@ -52,7 +58,7 @@ $(document).ready(function(){
 			    	};
 					console.log(result_curr);
 					console.log(daily_result);
-					$("#overlay").html(result_curr);
+					$("#overlay").html(result_curr + " °F");
 					$.each(daily_result, function(i, item){
 						var date = new Date(item.time * 1000);
 						me2 += "<tr><td>" + date + "</td>" +
@@ -66,9 +72,7 @@ $(document).ready(function(){
 					$.plot($(".container"), [graph_data], options);
 				}
 				$.getJSON(forcast_url, display_forcast);
-				// var data = [[1999,4], [2003, 1.3], me, [2001, 2.0], me1, [2004, 2.5], [2005, 2.0], [2006, 3.1], [2007, 2.9], [2008, 0.9]];
-				// $.plot($(".container"), [ data ], options);
-  	
+	
 			}
 		}
 			$.getJSON(fourcast_url, display_fourcast);
