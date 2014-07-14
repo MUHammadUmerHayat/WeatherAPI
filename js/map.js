@@ -1,8 +1,5 @@
 $(document).ready(function(){
-	$("#welcome").click(function(){
-		$(this).slideUp("slow");
-	});
-	var city_sel ;
+	var city_sel ;	
 	$("#form").submit(function(event){
 	event.preventDefault();
 	city_sel = $("#city_name").val();
@@ -14,7 +11,7 @@ $(document).ready(function(){
 
 	else
 	{	form.reset();
-		$("#exp").hide();
+		// $("#exp").hide();
 		$("#cetee, #map, #temp, #weat").fadeIn("slow");
 		// $("#overlay").html(temperature + " F");
 		// alert("Welcome");
@@ -52,7 +49,7 @@ $(document).ready(function(){
 					// var normal_time = result.time;
 					var graph_data = [];
 					var options = {
-				        lines: { show: true },
+				        lines: { show: true, fill:true },
 				        points: { show: true },
 				        xaxis: { tickDecimals: 0, tickSize: 1 }
 			    	};
@@ -69,7 +66,7 @@ $(document).ready(function(){
 					});
 					me2 += "</table>";
 					$("#tab").html(me2);
-					$.plot($(".container"), [graph_data], options);
+					$.plot($(".container"), [{ data : graph_data, label : 'A graph of Wind Speed versus day'}], options);
 				}
 				$.getJSON(forcast_url, display_forcast);
   	
@@ -80,3 +77,44 @@ $(document).ready(function(){
 
 	});
 });	
+     function default_load(){
+  $("#cetee, #map, #temp, #weat").fadeIn("slow");
+    var city = "Lagos, Nigeria";
+    var lat = 6.45306;
+    var lng = 3.39583;
+    var forcast_url = "https://api.forecast.io/forecast/761080e4acfe83e078084db199ffe7c3/" + lat + "," + lng + "?callback=?";
+    console.log(city);
+    console.log(lat);
+    console.log(lng);
+    console.log(forcast_url);
+    $(".container").show();
+    $("#display_selected").html("You have selected" + " " + city + 
+      "." + " " + "Coordinates are.." + " " + lat +"," + lng);
+     $("#table_div").fadeIn("slow");
+    var me2 = "<table ><tr><th>Time</th><th>Wind Speed (m/s)</th><th>Wind Bearing (°)</th></tr>";
+    function display_forcast(forecast_response){
+      var result_curr = forecast_response.currently.temperature;
+      var daily_result = forecast_response.daily.data;
+      var graph_data = [];
+      var options = {
+            lines: { show: true, fill:true },
+            points: { show: true },
+            xaxis: { tickDecimals: 0, tickSize: 1 }
+        };
+      console.log(result_curr);
+      console.log(daily_result);
+      $("#overlay").html(result_curr + " °F");
+      $.each(daily_result, function(i, item){
+        var date = new Date(item.time * 1000);
+        me2 += "<tr><td>" + date + "</td>" +
+        "<td>" + item.windSpeed + "</td>" +
+        "<td>" + item.windBearing + 
+        "</td></tr>";
+            graph_data.push([i,item.windSpeed]);
+      });
+      me2 += "</table>";
+      $("#tab").html(me2);
+      $.plot($(".container"), [{ data : graph_data, label : 'A graph of Wind Speed versus day'}], options);
+    }
+  $.getJSON(forcast_url, display_forcast);
+}

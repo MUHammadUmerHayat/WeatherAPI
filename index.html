@@ -13,13 +13,9 @@
     <script type="text/javascript" src="js/jquery.flot.js"></script>
     <script type="text/javascript"  src="js/map.js"></script>
     <script type="text/javascript">
-      function welcome_page(){
-    $("#welcome").fadeIn("slow");
-  };
     </script>
 </head>
-<body onload="welcome_page()">
-  <div id="welcome"><img  class="explor" src="img/explorer.jpg"></div>
+<body onload="default_load()">
    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="containa">
         <div class="navbar-header">
@@ -55,7 +51,7 @@
           </div>
         </div>
         <div class="col-md-5">
-          <h3 id="map"class="city">Map Coordinate</h3>
+          <h3 id="map"class="city">Wind Speed Graph</h3>
           <div class="container"></div>
           <p>
             <button class=" city btn btn-default graph" href="#" role="button">Click to view Map »</button>
