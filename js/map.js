@@ -59,21 +59,26 @@ $(document).ready(function(){
 			        var dat_curr1 = new Date(result1_curr.time * 1000);
 			        var dat_string1 = dat_curr1.toString();
 			        var dat1 = dat_string1.substr(0, 10);
+			        var daz =[];
 			      console.log(result1_curr);
 			      // console.log(daily_result);
 			      $("#overlay").html(result1_curr.temperature + " °F");
 			      $.each(daily_result, function(i, item){
 			        var dat_string = new Date(item.time * 1000);
+			        var days = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
 			        // var date = dat.toString();
 			        var dat_s = dat_string.toString();
         			var date = dat_s.substr(0, 15);
+   			        var day = dat_string.getDay();
 			        me2 += "<tr><td>" + date + "</td>" +
 			        "<td>" + item.windSpeed + "</td>" +
 			        "<td>" + item.windBearing + 
 			        "</td></tr>";
-			            graph_dat.push([i,item.windSpeed]);
+	                daz += "<span class='wa'>" + days[day] + "</span>";
+		            graph_dat.push([i,item.windSpeed]);
 			      });
 			      me2 += "</table>";
+			      $("#cont_overlay").html(daz);
 			      console.log(dat1);
 			      $("#table_forcast").html(me2);
 					console.log(result1_curr.windSpeed);
@@ -117,6 +122,7 @@ $(document).ready(function(){
       var daily_result = forecast_response.daily.data;
 		var dat = new Date(result_curr.time * 1000);
       var graph_data = [];
+      var daz = [];
       var options = {
             lines: { show: true, fill:true },
             points: { show: true },
@@ -126,7 +132,6 @@ $(document).ready(function(){
         var dat_string = dat_curr.toString();
         var dat = dat_string.substr(0, 10);
       console.log(result_curr);
-       var daz =[];
       // console.log(daily_result);
       $("#overlay").html(result_curr.temperature + " °F");
       $.each(daily_result, function(i, item){
