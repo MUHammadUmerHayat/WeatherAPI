@@ -49,10 +49,10 @@ img{
 	font-size: 1.5em;
 	color: brown;
 }
-table, th, td{
+/*table, th, td{
 	border: 2px solid green;
 	padding: 2px;
-}
+}*/
 #click_design{
 	position: absolute;
 	top: 300px;
@@ -72,4 +72,7 @@ table, th, td{
 .explor{
 	height: 80%;
 	width: 40%;
+}
+table, th, td{
+	padding: 5px;
 }

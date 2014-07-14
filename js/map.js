@@ -1,5 +1,6 @@
 $(document).ready(function(){
-	var city_sel ;	
+	var city_sel ;
+	var me2;	
 	$("#form").submit(function(event){
 	event.preventDefault();
 	city_sel = $("#city_name").val();
@@ -42,31 +43,42 @@ $(document).ready(function(){
 				// var me = [2000, 3.3];
 				// var me1 = [2002, 6];
 				 $("#table_div").fadeIn("slow");
-				var me2 = "<table ><tr><th>Time</th><th>Wind Speed (m/s)</th><th>Wind Bearing (°)</th></tr>";
+				me2 = "<table ><tr><th>Date</th><th>Wind Speed (m/s)</th><th>Wind Bearing (°)</th></tr>";
 				function display_forcast(forecast_response){
-					var result_curr = forecast_response.currently.temperature;
-					var daily_result = forecast_response.daily.data;
-					// var normal_time = result.time;
-					var graph_data = [];
-					var options = {
-				        lines: { show: true, fill:true },
-				        points: { show: true },
-				        xaxis: { tickDecimals: 0, tickSize: 1 }
-			    	};
-					console.log(result_curr);
-					console.log(daily_result);
-					$("#overlay").html(result_curr + " °F");
-					$.each(daily_result, function(i, item){
-						var date = new Date(item.time * 1000);
-						me2 += "<tr><td>" + date + "</td>" +
-						"<td>" + item.windSpeed + "</td>" +
-						"<td>" + item.windBearing + 
-						"</td></tr>";
-				        graph_data.push([i,item.windSpeed]);
-					});
-					me2 += "</table>";
-					$("#tab").html(me2);
-					$.plot($(".container"), [{ data : graph_data, label : 'A graph of Wind Speed versus day'}], options);
+			      var result1_curr = forecast_response.currently;
+			      var daily_result = forecast_response.daily.data;
+					var dat = new Date(result1_curr.time * 1000);
+			      var graph_dat = [];
+			      var options = {
+			            lines: { show: true, fill:true },
+			            points: { show: true },
+			            xaxis: { tickDecimals: 0, tickSize: 1 }
+			        };
+			        var dat_curr1 = new Date(result1_curr.time * 1000);
+			        var dat_string1 = dat_curr1.toString();
+			        var dat1 = dat_string1.substr(0, 10);
+			      console.log(result1_curr);
+			      // console.log(daily_result);
+			      $("#overlay").html(result1_curr.temperature + " °F");
+			      $.each(daily_result, function(i, item){
+			        var date = new Date(item.time * 1000);
+			        // var date = dat.toString();
+			        me2 += "<tr><td>" + date + "</td>" +
+			        "<td>" + item.windSpeed + "</td>" +
+			        "<td>" + item.windBearing + 
+			        "</td></tr>";
+			            graph_dat.push([i,item.windSpeed]);
+			      });
+			      me2 += "</table>";
+			      console.log(dat1);
+					console.log(result1_curr.windSpeed);
+					console.log(result1_curr.windBearing);
+					$("#tab").html("<table class='table_curr' border='0' cellspacing ='5' cellpadding='5'>" + 
+						"<tr><th>Date</th><td>" + dat1 + "</td></tr>" +
+						"<tr><th>Wind Speed</th><td>" + result1_curr.windSpeed + 'm/s' + "</td></tr>" +
+						"<tr><th>Wind Bearing</th><td>" + result1_curr.windBearing + '°' + "</td></tr>" +
+						"</table>")
+					$.plot($(".container"), [{ data : graph_dat, label : 'A graph of Wind Speed versus day'}], options);
 				}
 				$.getJSON(forcast_url, display_forcast);
   	
@@ -91,21 +103,27 @@ $(document).ready(function(){
     $("#display_selected").html("You have selected" + " " + city + 
       "." + " " + "Coordinates are.." + " " + lat +"," + lng);
      $("#table_div").fadeIn("slow");
-    var me2 = "<table ><tr><th>Time</th><th>Wind Speed (m/s)</th><th>Wind Bearing (°)</th></tr>";
+     me2 = "<table ><tr><th>Time</th><th>Wind Speed (m/s)</th><th>Wind Bearing (°)</th></tr>";
     function display_forcast(forecast_response){
-      var result_curr = forecast_response.currently.temperature;
+      var result_curr = forecast_response.currently;
       var daily_result = forecast_response.daily.data;
+		var dat = new Date(result_curr.time * 1000);
       var graph_data = [];
       var options = {
             lines: { show: true, fill:true },
             points: { show: true },
             xaxis: { tickDecimals: 0, tickSize: 1 }
         };
+        var dat_curr = new Date(result_curr.time * 1000);
+        var dat_string = dat_curr.toString();
+        var dat = dat_string.substr(0, 10);
+        var days = ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
       console.log(result_curr);
-      console.log(daily_result);
-      $("#overlay").html(result_curr + " °F");
+      // console.log(daily_result);
+      $("#overlay").html(result_curr.temperature + " °F");
       $.each(daily_result, function(i, item){
         var date = new Date(item.time * 1000);
+        // var date = dat.toString();
         me2 += "<tr><td>" + date + "</td>" +
         "<td>" + item.windSpeed + "</td>" +
         "<td>" + item.windBearing + 
@@ -113,7 +131,15 @@ $(document).ready(function(){
             graph_data.push([i,item.windSpeed]);
       });
       me2 += "</table>";
-      $("#tab").html(me2);
+      console.log(dat);
+		console.log(result_curr.windSpeed);
+		console.log(result_curr.windBearing);
+		$("#tab").html("<table class='table_curr' border='0' cellspacing ='5' cellpadding='5'>" + 
+			"<tr><th>Date</th><td>" + dat + "</td></tr>" +
+			"<tr><th>Wind Speed</th><td>" + result_curr.windSpeed + 'm/s' + "</td></tr>" +
+			"<tr><th>Wind Bearing</th><td>" + result_curr.windBearing + '°' + "</td></tr>" +
+			"</table>")
+      // $("#tab").html(me2);
       $.plot($(".container"), [{ data : graph_data, label : 'A graph of Wind Speed versus day'}], options);
     }
   $.getJSON(forcast_url, display_forcast);
