@@ -86,5 +86,13 @@ table, th, td{
 #cont_overlay{
 	width: 100%;
 	height: 20px;
-	background: rgba(0,0,0,0);
+	/*background: rgba(0,0,0,0.7);*/
+	position: absolute;
+	top: 376px;
+	color: black;
+
+}
+.was{
+	color: black;
+	padding-left: 22px;
 }

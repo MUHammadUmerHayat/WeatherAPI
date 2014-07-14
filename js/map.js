@@ -126,6 +126,7 @@ $(document).ready(function(){
         var dat_string = dat_curr.toString();
         var dat = dat_string.substr(0, 10);
       console.log(result_curr);
+       var daz =[];
       // console.log(daily_result);
       $("#overlay").html(result_curr.temperature + " °F");
       $.each(daily_result, function(i, item){
@@ -133,17 +134,18 @@ $(document).ready(function(){
         var dat_string = new Date(item.time * 1000);
         var dat_s = dat_string.toString();
         var date = dat_s.substr(0, 15);
-        // console.log(day);
-        // console.log(days[i]);
-        // console.log(days[day]);
-   		me2 += "<tr><td>" + date + "</td>" +
+        var day = dat_string.getDay();
+        me2 += "<tr><td>" + date + "</td>" +
         "<td>" + item.windSpeed + "</td>" +
         "<td>" + item.windBearing + 
         "</td></tr>";
-            graph_data.push([i,item.windSpeed]);
+        // daz.push(days[day]);
+        daz += "<span class='was'>" + days[day] + "</span>";
+           graph_data.push([i,item.windSpeed]);
       });
       me2 += "</table>";
-      console.log(dat);
+      console.log(daz);
+      $("#cont_overlay").html(daz);
 		console.log(result_curr.windSpeed);
 		console.log(result_curr.windBearing);
 		$("#tab").html("<table class='table_curr' border='0' cellspacing ='5' cellpadding='5'>" + 
