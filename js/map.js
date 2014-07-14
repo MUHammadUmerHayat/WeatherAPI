@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	var city_sel ;
 	var me2;	
+	$("#table_forcast").hide();
 	$("#form").submit(function(event){
 	event.preventDefault();
 	city_sel = $("#city_name").val();
@@ -13,6 +14,7 @@ $(document).ready(function(){
 	else
 	{	form.reset();
 		// $("#exp").hide();
+		$("#table_forcast").hide("slow");
 		$("#cetee, #map, #temp, #weat").fadeIn("slow");
 		// $("#overlay").html(temperature + " F");
 		// alert("Welcome");
@@ -61,8 +63,10 @@ $(document).ready(function(){
 			      // console.log(daily_result);
 			      $("#overlay").html(result1_curr.temperature + " °F");
 			      $.each(daily_result, function(i, item){
-			        var date = new Date(item.time * 1000);
+			        var dat_string = new Date(item.time * 1000);
 			        // var date = dat.toString();
+			        var dat_s = dat_string.toString();
+        			var date = dat_s.substr(0, 15);
 			        me2 += "<tr><td>" + date + "</td>" +
 			        "<td>" + item.windSpeed + "</td>" +
 			        "<td>" + item.windBearing + 
@@ -71,6 +75,7 @@ $(document).ready(function(){
 			      });
 			      me2 += "</table>";
 			      console.log(dat1);
+			      $("#table_forcast").html(me2);
 					console.log(result1_curr.windSpeed);
 					console.log(result1_curr.windBearing);
 					$("#tab").html("<table class='table_curr' border='0' cellspacing ='5' cellpadding='5'>" + 
@@ -88,6 +93,9 @@ $(document).ready(function(){
 	}
 
 	});
+	$("#get_more").click(function(){
+	$("#table_forcast").slideToggle("slow");
+		});
 });	
      function default_load(){
   $("#cetee, #map, #temp, #weat").fadeIn("slow");
@@ -117,14 +125,18 @@ $(document).ready(function(){
         var dat_curr = new Date(result_curr.time * 1000);
         var dat_string = dat_curr.toString();
         var dat = dat_string.substr(0, 10);
-        var days = ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
       console.log(result_curr);
       // console.log(daily_result);
       $("#overlay").html(result_curr.temperature + " °F");
       $.each(daily_result, function(i, item){
-        var date = new Date(item.time * 1000);
-        // var date = dat.toString();
-        me2 += "<tr><td>" + date + "</td>" +
+   	   var days = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+        var dat_string = new Date(item.time * 1000);
+        var dat_s = dat_string.toString();
+        var date = dat_s.substr(0, 15);
+        // console.log(day);
+        // console.log(days[i]);
+        // console.log(days[day]);
+   		me2 += "<tr><td>" + date + "</td>" +
         "<td>" + item.windSpeed + "</td>" +
         "<td>" + item.windBearing + 
         "</td></tr>";
@@ -139,8 +151,11 @@ $(document).ready(function(){
 			"<tr><th>Wind Speed</th><td>" + result_curr.windSpeed + 'm/s' + "</td></tr>" +
 			"<tr><th>Wind Bearing</th><td>" + result_curr.windBearing + '°' + "</td></tr>" +
 			"</table>")
-      // $("#tab").html(me2);
+        $("#table_forcast").html(me2);
       $.plot($(".container"), [{ data : graph_data, label : 'A graph of Wind Speed versus day'}], options);
     }
   $.getJSON(forcast_url, display_forcast);
 }
+// $(document).ready(function(){
+	
+// })
