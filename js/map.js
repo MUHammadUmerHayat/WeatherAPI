@@ -88,7 +88,7 @@ $(document).ready(function(){
 						"<tr><th>Wind Speed</th><td>" + result1_curr.windSpeed + 'm/s' + "</td></tr>" +
 						"<tr><th>Wind Bearing</th><td>" + result1_curr.windBearing + '°' + "</td></tr>" +
 						"</table>")
-					$.plot($(".container"), [{ data : graph_dat, label : 'A graph of Wind Speed versus day'}], options);
+					$.plot($(".container"), [{ data : graph_dat, label : 'Wind Speed graph'}], options);
 				}
 				$.getJSON(forcast_url, display_forcast);
   	

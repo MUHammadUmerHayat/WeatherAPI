@@ -45,8 +45,8 @@ img{
 	height: 30px;
 	/*background-color: black;*/
 	position: absolute;
-	top: 140px;
-	left: 150px;
+	top: 38%;
+	left: 45%;
 	font-size: 1.5em;
 	color: brown;
 }
@@ -89,15 +89,15 @@ table, th, td{
 	height: 20px;
 	/*background: rgba(0,0,0,0.7);*/
 	position: absolute;
-	top: 376px;
+	top: 95%;
 	color: black;
 
 }
 .was{
 	color: black;
-	padding-left: 22px;
+	padding: 3%;
 }
 .wa{
 	color: black;
-	padding-left: 20px;
+	padding: 3%;
 }
