@@ -13,15 +13,10 @@ $(document).ready(function(){
 
 	else
 	{	form.reset();
-		// $("#exp").hide();
 		$("#table_forcast").hide("slow");
 		$("#cetee, #map, #temp, #weat").fadeIn("slow");
-		// $("#overlay").html(temperature + " F");
-		// alert("Welcome");
-		// console.log(city_sel);
-		var fourcast_url = "https://api.foursquare.com/v2/venues/search?near=" + city_sel + "&client_id=NK2F2DN4LL5ZRKHX3QLIUULNCET5OHVX1RYKMDQQ4XY4RFFH&client_secret=00F0HEOA2VAP5XS2OIGKGOTQPM522J1G4M341BY5DQO21CTL&v=20140710&callback=?";
-		function display_fourcast(fourecast_response){
-			console.log(fourecast_response.meta.code);
+		var forecast_url = "https://api.forecast.io/forecast/761080e4acfe83e078084db199ffe7c3/6.3,3.4";
+    	function display_fourcast(fourecast_response){
 			if(fourecast_response.meta.code != 200)
 			{
 				$("#display_selected").html("City not found");
@@ -35,15 +30,10 @@ $(document).ready(function(){
 				var city = result1.displayName;
 				var lat = result.lat;
 				var lng = result.lng;
-				console.log(city);
-				console.log(lat);
-				console.log(lng);
 				$(".container").show();
 				$("#display_selected").html("You have selected" + " " + city + 
 					"." + " " + "Coordinates are.." + " " + lat +"," + lng);
 				var forcast_url = "https://api.forecast.io/forecast/761080e4acfe83e078084db199ffe7c3/" + lat + "," + lng + "?callback=?";
-				// var me = [2000, 3.3];
-				// var me1 = [2002, 6];
 				 $("#table_div").fadeIn("slow");
 				me2 = "<table ><tr><th>Date</th><th>Wind Speed (m/s)</th><th>Wind Bearing (°)</th></tr>";
 				function display_forcast(forecast_response){
@@ -66,7 +56,6 @@ $(document).ready(function(){
 			      $.each(daily_result, function(i, item){
 			        var dat_string = new Date(item.time * 1000);
 			        var days = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
-			        // var date = dat.toString();
 			        var dat_s = dat_string.toString();
         			var date = dat_s.substr(0, 15);
    			        var day = dat_string.getDay();
@@ -108,10 +97,6 @@ $(document).ready(function(){
     var lat = 6.45306;
     var lng = 3.39583;
     var forcast_url = "https://api.forecast.io/forecast/761080e4acfe83e078084db199ffe7c3/" + lat + "," + lng + "?callback=?";
-    console.log(city);
-    console.log(lat);
-    console.log(lng);
-    console.log(forcast_url);
     $(".container").show();
     $("#display_selected").html("You have selected" + " " + city + 
       "." + " " + "Coordinates are.." + " " + lat +"," + lng);
