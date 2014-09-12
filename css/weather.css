@@ -1,0 +1,103 @@
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+  margin: 0 auto;
+}
+.container{
+	width:100%;
+	height:340px;
+	/*border: 1px solid green;*/
+	/*position: relative;*/
+}
+#display_curr_temp{
+	display: block;
+	width: 100%;
+	height: 300px;
+}
+#weat{
+	width: 100%;
+	height: 100%;
+}
+#futa{
+	text-align: center;
+}
+.show_border{
+	border: 1px solid green;
+}
+#exp{
+/*	background-image: url("../img/explorer.jpg");
+	background-repeat: no-repeat;
+*/	width: 100%;
+	height: 180px;
+}
+#map{
+	text-align: center;
+}
+img{
+	height: 100%;
+	width: 100%;
+}
+#table_div, .city{
+	display: none;
+}
+#overlay{
+	/*width: 30px;*/
+	height: 30px;
+	/*background-color: black;*/
+	position: absolute;
+	top: 38%;
+	left: 45%;
+	font-size: 1.5em;
+	color: brown;
+}
+/*table, th, td{
+	border: 2px solid green;
+	padding: 2px;
+}*/
+#click_design{
+	position: absolute;
+	top: 300px;
+	left: 300px;
+}
+#welcome{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	/*left: 0;*/
+	/*top: 0;*/
+	/*background: rgba(0,0,0, 0.2);*/
+	margin: 0 auto;
+	text-align: center;
+	z-index: 2;
+}
+.explor{
+	height: 80%;
+	width: 40%;
+}
+table, th, td{
+	padding: 5px;
+}
+#table_forcast{
+	display: none;
+	width: 700px;
+	margin: 0 auto;
+	margin-top: 20px;
+	text-align: center;
+}
+#cont_overlay{
+	width: 100%;
+	height: 20px;
+	/*background: rgba(0,0,0,0.7);*/
+	position: absolute;
+	top: 95%;
+	color: black;
+
+}
+.was{
+	color: black;
+	padding: 3%;
+}
+.wa{
+	color: black;
+	padding: 3%;
+}
